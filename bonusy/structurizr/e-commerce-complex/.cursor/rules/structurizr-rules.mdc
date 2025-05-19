@@ -1,0 +1,6 @@
+---
+description: 
+globs: *.dsl,**/*.dsl
+alwaysApply: false
+---
+Whenever asked to fix issues in .dsl structurizr files, always refer to official documentation and don't ask me for confirmation - just update files. If there is more than one option, just explain them and choose the most appropriate.

@@ -1,0 +1,269 @@
+{
+  "configuration" : { },
+  "description" : "A simplified C4 model of an e-commerce system",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedAgent" : "structurizr-ui",
+  "lastModifiedDate" : "2025-05-18T23:02:19Z",
+  "model" : {
+    "people" : [ {
+      "description" : "A customer who wants to buy products online",
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "Customer",
+      "properties" : {
+        "structurizr.dsl.identifier" : "customer"
+      },
+      "relationships" : [ {
+        "description" : "Browses and purchases products using",
+        "destinationId" : "4",
+        "id" : "15",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Staff member managing products and orders",
+      "id" : "2",
+      "location" : "Unspecified",
+      "name" : "Admin",
+      "properties" : {
+        "structurizr.dsl.identifier" : "admin"
+      },
+      "relationships" : [ {
+        "description" : "Manages products and orders",
+        "destinationId" : "4",
+        "id" : "16",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "description" : "Handles payment processing",
+      "documentation" : { },
+      "id" : "3",
+      "location" : "Unspecified",
+      "name" : "Payment Provider",
+      "properties" : {
+        "structurizr.dsl.identifier" : "paymentprovider"
+      },
+      "tags" : "Element,Software System"
+    }, {
+      "containers" : [ {
+        "description" : "Provides e-commerce functionality to customers",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "Web Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "webapp"
+        },
+        "relationships" : [ {
+          "description" : "Makes API calls to",
+          "destinationId" : "6",
+          "id" : "11",
+          "sourceId" : "5",
+          "tags" : "Relationship",
+          "technology" : "JSON/HTTPS"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "React SPA"
+      }, {
+        "components" : [ {
+          "description" : "Handles user authentication",
+          "documentation" : { },
+          "id" : "7",
+          "name" : "Authentication Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "authcomponent"
+          },
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Manages product catalog",
+          "documentation" : { },
+          "id" : "8",
+          "name" : "Product Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "productcomponent"
+          },
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Manages customer orders",
+          "documentation" : { },
+          "id" : "9",
+          "name" : "Order Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ordercomponent"
+          },
+          "tags" : "Element,Component"
+        } ],
+        "description" : "Provides e-commerce functionality via API",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "API Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "apiapplication"
+        },
+        "relationships" : [ {
+          "description" : "Reads from and writes to",
+          "destinationId" : "10",
+          "id" : "12",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Processes payments via",
+          "destinationId" : "3",
+          "id" : "13",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Node.js"
+      }, {
+        "description" : "Stores product catalog, orders, etc.",
+        "documentation" : { },
+        "id" : "10",
+        "name" : "Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "database"
+        },
+        "tags" : "Element,Container",
+        "technology" : "MongoDB"
+      } ],
+      "description" : "Allows customers to browse and purchase products online",
+      "documentation" : { },
+      "id" : "4",
+      "location" : "Unspecified",
+      "name" : "E-Commerce System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "ecommerce"
+      },
+      "relationships" : [ {
+        "description" : "Processes payments via",
+        "destinationId" : "3",
+        "id" : "14",
+        "linkedRelationshipId" : "13",
+        "sourceId" : "4"
+      } ],
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "E-Commerce System",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJFLUNvbW1lcmNlIFN5c3RlbSIgIkEgc2ltcGxpZmllZCBDNCBtb2RlbCBvZiBhbiBlLWNvbW1lcmNlIHN5c3RlbSIgewoKICAgIG1vZGVsIHsKICAgICAgICBjdXN0b21lciA9IHBlcnNvbiAiQ3VzdG9tZXIiICJBIGN1c3RvbWVyIHdobyB3YW50cyB0byBidXkgcHJvZHVjdHMgb25saW5lIgogICAgICAgIGFkbWluID0gcGVyc29uICJBZG1pbiIgIlN0YWZmIG1lbWJlciBtYW5hZ2luZyBwcm9kdWN0cyBhbmQgb3JkZXJzIgogICAgICAgIHBheW1lbnRQcm92aWRlciA9IHNvZnR3YXJlU3lzdGVtICJQYXltZW50IFByb3ZpZGVyIiAiSGFuZGxlcyBwYXltZW50IHByb2Nlc3NpbmciCgogICAgICAgIGVjb21tZXJjZSA9IHNvZnR3YXJlU3lzdGVtICJFLUNvbW1lcmNlIFN5c3RlbSIgIkFsbG93cyBjdXN0b21lcnMgdG8gYnJvd3NlIGFuZCBwdXJjaGFzZSBwcm9kdWN0cyBvbmxpbmUiIHsKICAgICAgICAgICAgd2ViQXBwID0gY29udGFpbmVyICJXZWIgQXBwbGljYXRpb24iICJQcm92aWRlcyBlLWNvbW1lcmNlIGZ1bmN0aW9uYWxpdHkgdG8gY3VzdG9tZXJzIiAiUmVhY3QgU1BBIgogICAgICAgICAgICBhcGlBcHBsaWNhdGlvbiA9IGNvbnRhaW5lciAiQVBJIEFwcGxpY2F0aW9uIiAiUHJvdmlkZXMgZS1jb21tZXJjZSBmdW5jdGlvbmFsaXR5IHZpYSBBUEkiICJOb2RlLmpzIiB7CiAgICAgICAgICAgICAgICBhdXRoQ29tcG9uZW50ID0gY29tcG9uZW50ICJBdXRoZW50aWNhdGlvbiBDb21wb25lbnQiICJIYW5kbGVzIHVzZXIgYXV0aGVudGljYXRpb24iCiAgICAgICAgICAgICAgICBwcm9kdWN0Q29tcG9uZW50ID0gY29tcG9uZW50ICJQcm9kdWN0IENvbXBvbmVudCIgIk1hbmFnZXMgcHJvZHVjdCBjYXRhbG9nIgogICAgICAgICAgICAgICAgb3JkZXJDb21wb25lbnQgPSBjb21wb25lbnQgIk9yZGVyIENvbXBvbmVudCIgIk1hbmFnZXMgY3VzdG9tZXIgb3JkZXJzIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGRhdGFiYXNlID0gY29udGFpbmVyICJEYXRhYmFzZSIgIlN0b3JlcyBwcm9kdWN0IGNhdGFsb2csIG9yZGVycywgZXRjLiIgIk1vbmdvREIiCgogICAgICAgICAgICB3ZWJBcHAgLT4gYXBpQXBwbGljYXRpb24gIk1ha2VzIEFQSSBjYWxscyB0byIgIkpTT04vSFRUUFMiCiAgICAgICAgICAgIGFwaUFwcGxpY2F0aW9uIC0+IGRhdGFiYXNlICJSZWFkcyBmcm9tIGFuZCB3cml0ZXMgdG8iCiAgICAgICAgICAgIGFwaUFwcGxpY2F0aW9uIC0+IHBheW1lbnRQcm92aWRlciAiUHJvY2Vzc2VzIHBheW1lbnRzIHZpYSIKICAgICAgICB9CgogICAgICAgICMgY3VzdG9tZXIgLT4gZWNvbW1lcmNlLndlYkFwcCAiQnJvd3NlcyBhbmQgcHVyY2hhc2VzIHByb2R1Y3RzIHVzaW5nIgogICAgICAgIGN1c3RvbWVyIC0+IGVjb21tZXJjZSAiQnJvd3NlcyBhbmQgcHVyY2hhc2VzIHByb2R1Y3RzIHVzaW5nIgogICAgICAgIGFkbWluIC0+IGVjb21tZXJjZSAiTWFuYWdlcyBwcm9kdWN0cyBhbmQgb3JkZXJzIgogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzeXN0ZW1Db250ZXh0IGVjb21tZXJjZSAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIGVjb21tZXJjZSAiQ29udGFpbmVycyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KCiAgICAgICAgIyBjb21wb25lbnQgZWNvbW1lcmNlLmFwaUFwcGxpY2F0aW9uICJDb21wb25lbnRzIiB7CiAgICAgICAgIyAgICAgaW5jbHVkZSAqCiAgICAgICAgIyAgICAgYXV0b0xheW91dAogICAgICAgICMgfQoKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJQZXJzb24iIHsKICAgICAgICAgICAgICAgIHNoYXBlIFBlcnNvbgogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjMDg0MjdCCiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiU29mdHdhcmUgU3lzdGVtIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICMxMTY4QkQKICAgICAgICAgICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJDb250YWluZXIiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzQzOERENQogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkNvbXBvbmVudCIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjODVCQkYwCiAgICAgICAgICAgICAgICBjb2xvciAjMDAwMDAwCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9Cn0="
+  },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "Containers",
+      "metadataSymbols" : "SquareBrackets",
+      "styles" : {
+        "elements" : [ {
+          "background" : "#08427b",
+          "color" : "#ffffff",
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "background" : "#1168bd",
+          "color" : "#ffffff",
+          "tag" : "Software System"
+        }, {
+          "background" : "#438dd5",
+          "color" : "#ffffff",
+          "tag" : "Container"
+        }, {
+          "background" : "#85bbf0",
+          "color" : "#000000",
+          "tag" : "Component"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 2011,
+        "width" : 1620
+      },
+      "elements" : [ {
+        "id" : "3",
+        "x" : 970,
+        "y" : 1385
+      }, {
+        "id" : "5",
+        "x" : 220,
+        "y" : 185
+      }, {
+        "id" : "6",
+        "x" : 220,
+        "y" : 785
+      }, {
+        "id" : "10",
+        "x" : 220,
+        "y" : 1385
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Containers",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "11"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "13"
+      } ],
+      "softwareSystemId" : "4"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 2000,
+        "width" : 1500
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 200,
+        "y" : 165
+      }, {
+        "id" : "2",
+        "x" : 900,
+        "y" : 165
+      }, {
+        "id" : "3",
+        "x" : 525,
+        "y" : 1465
+      }, {
+        "id" : "4",
+        "x" : 525,
+        "y" : 865
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemContext",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "14"
+      }, {
+        "id" : "15"
+      }, {
+        "id" : "16"
+      } ],
+      "softwareSystemId" : "4"
+    } ]
+  }
+}

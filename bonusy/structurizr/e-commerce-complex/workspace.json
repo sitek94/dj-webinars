@@ -1,0 +1,962 @@
+{
+  "configuration" : {
+    "visibility" : "Public"
+  },
+  "description" : "Large-scale distributed system handling online retail operations",
+  "documentation" : {
+    "decisions" : [ {
+      "content" : "# ADR-001: Adopt Microservices Architecture\n\n## Context\nThe system requires horizontal scalability and independent deployability of components.\n\n## Decision\nImplement core functionality as Spring Boot microservices with Docker containers.\n\n## Consequences\n- ✅ Improved fault isolation\n- ✅ Technology heterogeneity\n- ❌ Increased operational complexity\n",
+      "date" : "2025-05-18T23:02:50Z",
+      "format" : "Markdown",
+      "id" : "1",
+      "status" : "Proposed",
+      "title" : " ADR-001: Adopt Microservices Architecture"
+    }, {
+      "content" : "# ADR-002: Event Sourcing Implementation\n\n## Context\nNeed real-time inventory updates across distributed systems.\n\n## Decision\nUse Apache Kafka for event streaming between services.\n\n## Consequences\n- ✅ Decoupled service communication\n- ✅ Audit trail of system state changes\n- ❌ Added latency in read operations\n",
+      "date" : "2025-05-18T23:02:50Z",
+      "format" : "Markdown",
+      "id" : "2",
+      "status" : "Proposed",
+      "title" : " ADR-002: Event Sourcing Implementation"
+    } ],
+    "sections" : [ {
+      "content" : "# E-Commerce Platform Architecture Overview\n\n## Key Characteristics\n\n- **Scalability**: Auto-scaling EC2 instances with RDS read replicas\n- **Resilience**: Circuit breakers in API gateway\n- **Performance**: Redis cache layer for product catalog\n\n## Main Actors\n\n- Online Shopper (Customer)\n- Third-Party Seller\n- System Administrator\n\n## Main Use Cases\n\n- Browse/search products, checkout, order tracking, reviews, returns\n- Seller inventory/product management\n- Admin configuration, monitoring, support\n\n## System Landscape\n\n- Frontend: Web/mobile apps, CDN for static content\n- Backend: Microservices for catalog, orders, payments, search, recommendations, notifications\n- Data: RDS for structured data, Redis for caching, S3 for static assets\n\n## Integration\n\n- Payment gateway (Stripe)\n- CDN (Cloudflare)\n- Notification (Email/SMS providers)\n- Shipping/logistics partners\n",
+      "format" : "Markdown",
+      "order" : 1,
+      "title" : ""
+    } ]
+  },
+  "id" : 1,
+  "lastModifiedAgent" : "structurizr-ui",
+  "lastModifiedDate" : "2025-05-18T23:02:55Z",
+  "model" : {
+    "deploymentNodes" : [ {
+      "children" : [ {
+        "containerInstances" : [ {
+          "containerId" : "5",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "40",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "e3d1e8e5-2d4e-435d-9475-5c820da3b4e3"
+          },
+          "relationships" : [ {
+            "description" : "API requests",
+            "destinationId" : "41",
+            "id" : "42",
+            "linkedRelationshipId" : "27",
+            "sourceId" : "40"
+          } ],
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "7",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "41",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "1f9b9fbf-bad7-4717-ab3a-9ffe8231f895"
+          },
+          "relationships" : [ {
+            "description" : "Authenticates users",
+            "destinationId" : "43",
+            "id" : "44",
+            "linkedRelationshipId" : "29",
+            "sourceId" : "41"
+          }, {
+            "description" : "Product info requests",
+            "destinationId" : "45",
+            "id" : "46",
+            "linkedRelationshipId" : "30",
+            "sourceId" : "41"
+          }, {
+            "description" : "Order processing",
+            "destinationId" : "47",
+            "id" : "48",
+            "linkedRelationshipId" : "31",
+            "sourceId" : "41"
+          }, {
+            "description" : "Cart management",
+            "destinationId" : "49",
+            "id" : "50",
+            "linkedRelationshipId" : "32",
+            "sourceId" : "41"
+          }, {
+            "description" : "Payment processing",
+            "destinationId" : "51",
+            "id" : "52",
+            "linkedRelationshipId" : "33",
+            "sourceId" : "41"
+          }, {
+            "description" : "Product search",
+            "destinationId" : "53",
+            "id" : "54",
+            "linkedRelationshipId" : "34",
+            "sourceId" : "41"
+          }, {
+            "description" : "Gets product suggestions",
+            "destinationId" : "55",
+            "id" : "56",
+            "linkedRelationshipId" : "35",
+            "sourceId" : "41"
+          }, {
+            "description" : "Sends notifications",
+            "destinationId" : "57",
+            "id" : "58",
+            "linkedRelationshipId" : "36",
+            "sourceId" : "41"
+          }, {
+            "description" : "Stock checks",
+            "destinationId" : "59",
+            "id" : "60",
+            "linkedRelationshipId" : "37",
+            "sourceId" : "41"
+          } ],
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "8",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "43",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "9d10386b-d50b-47bc-959a-680cade40697"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "9",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "45",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "aea1617a-141e-4206-abe4-da59705b810d"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "12",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "47",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "c90e36d5-b39c-4a1d-b71c-3f79834e5a07"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "13",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "49",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "6a35ff2f-02ee-46bb-b2c2-fe78d72e3a35"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "14",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "51",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "a8ff4205-a9fe-43b2-b0f1-a92cc3c4d8a8"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "15",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "53",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "dc709420-143e-4145-a98c-deaedb41955d"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "16",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "55",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "d38360d7-8e9a-4463-9408-1336417497c8"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "17",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "57",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "af796b49-c2d0-4b15-9d5c-0494bd8848dc"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "18",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "59",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "a740b403-cba9-41bf-8015-407c90899d12"
+          },
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "19",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Production",
+          "id" : "61",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "d4d19b92-6840-4d16-8fa1-eb9efd426671"
+          },
+          "tags" : "Container Instance"
+        } ],
+        "environment" : "Production",
+        "id" : "39",
+        "instances" : "1",
+        "name" : "EC2 Auto Scaling Group",
+        "properties" : {
+          "structurizr.dsl.identifier" : "0c53ec44-9393-4090-a8d9-ca2f10140763"
+        },
+        "tags" : "Element,Deployment Node"
+      }, {
+        "environment" : "Production",
+        "id" : "62",
+        "infrastructureNodes" : [ {
+          "description" : "PostgreSQL",
+          "environment" : "Production",
+          "id" : "63",
+          "name" : "User Database",
+          "properties" : {
+            "structurizr.dsl.identifier" : "91a4425c-89e0-46d2-a943-70cc5389fb16"
+          },
+          "tags" : "Element,Infrastructure Node"
+        }, {
+          "description" : "PostgreSQL",
+          "environment" : "Production",
+          "id" : "64",
+          "name" : "Order Database",
+          "properties" : {
+            "structurizr.dsl.identifier" : "6174a4b8-6d9d-4134-b03c-f7809e34f83b"
+          },
+          "tags" : "Element,Infrastructure Node"
+        }, {
+          "description" : "PostgreSQL",
+          "environment" : "Production",
+          "id" : "65",
+          "name" : "Product Database",
+          "properties" : {
+            "structurizr.dsl.identifier" : "05a7fc3a-fb79-42fa-98b4-ba7671b30803"
+          },
+          "tags" : "Element,Infrastructure Node"
+        } ],
+        "instances" : "1",
+        "name" : "RDS Cluster",
+        "properties" : {
+          "structurizr.dsl.identifier" : "b0c6a12c-925b-42fe-be52-ec2325803b1a"
+        },
+        "tags" : "Element,Deployment Node"
+      }, {
+        "environment" : "Production",
+        "id" : "66",
+        "infrastructureNodes" : [ {
+          "description" : "Redis",
+          "environment" : "Production",
+          "id" : "67",
+          "name" : "Redis Cache",
+          "properties" : {
+            "structurizr.dsl.identifier" : "e2289cbe-1170-4b43-a740-9813fa1ad52d"
+          },
+          "tags" : "Element,Infrastructure Node"
+        } ],
+        "instances" : "1",
+        "name" : "Elasticache",
+        "properties" : {
+          "structurizr.dsl.identifier" : "54ffb503-686d-424b-9e92-a5ccdcb6ce2b"
+        },
+        "tags" : "Element,Deployment Node"
+      }, {
+        "environment" : "Production",
+        "id" : "68",
+        "infrastructureNodes" : [ {
+          "description" : "S3",
+          "environment" : "Production",
+          "id" : "69",
+          "name" : "Static Content Storage",
+          "properties" : {
+            "structurizr.dsl.identifier" : "7642949c-91a3-42f2-8325-b3f0a7adb11f"
+          },
+          "tags" : "Element,Infrastructure Node"
+        } ],
+        "instances" : "1",
+        "name" : "S3 Bucket",
+        "properties" : {
+          "structurizr.dsl.identifier" : "61272ea7-51a4-4cea-b97c-1f9da298abde"
+        },
+        "tags" : "Element,Deployment Node"
+      } ],
+      "environment" : "Production",
+      "id" : "38",
+      "instances" : "1",
+      "name" : "AWS Cloud",
+      "properties" : {
+        "structurizr.dsl.identifier" : "9663f6f7-983e-4ecf-bb6b-dca294f799a4"
+      },
+      "tags" : "Element,Deployment Node"
+    } ],
+    "people" : [ {
+      "description" : "Uses web/mobile interfaces to browse and purchase products",
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "Online Shopper",
+      "properties" : {
+        "structurizr.dsl.identifier" : "customer"
+      },
+      "relationships" : [ {
+        "description" : "Browses products and makes purchases",
+        "destinationId" : "4",
+        "id" : "22",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Manages product listings and inventory",
+      "id" : "2",
+      "location" : "Unspecified",
+      "name" : "Third-Party Seller",
+      "properties" : {
+        "structurizr.dsl.identifier" : "seller"
+      },
+      "relationships" : [ {
+        "description" : "Manages inventory and products",
+        "destinationId" : "4",
+        "id" : "23",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Manages platform configuration and monitoring",
+      "id" : "3",
+      "location" : "Unspecified",
+      "name" : "System Administrator",
+      "properties" : {
+        "structurizr.dsl.identifier" : "admin"
+      },
+      "relationships" : [ {
+        "description" : "Configures and monitors system",
+        "destinationId" : "4",
+        "id" : "24",
+        "sourceId" : "3",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "Next.js frontend",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "Web Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "web_app"
+        },
+        "relationships" : [ {
+          "description" : "API requests",
+          "destinationId" : "7",
+          "id" : "27",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "JavaScript"
+      }, {
+        "description" : "iOS/Android clients",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "Mobile App",
+        "properties" : {
+          "structurizr.dsl.identifier" : "mobile_app"
+        },
+        "relationships" : [ {
+          "description" : "API requests",
+          "destinationId" : "7",
+          "id" : "28",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Swift/Kotlin"
+      }, {
+        "description" : "Kong API management",
+        "documentation" : { },
+        "id" : "7",
+        "name" : "API Gateway",
+        "properties" : {
+          "structurizr.dsl.identifier" : "api_gateway"
+        },
+        "relationships" : [ {
+          "description" : "Authenticates users",
+          "destinationId" : "8",
+          "id" : "29",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Product info requests",
+          "destinationId" : "9",
+          "id" : "30",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Order processing",
+          "destinationId" : "12",
+          "id" : "31",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Cart management",
+          "destinationId" : "13",
+          "id" : "32",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Payment processing",
+          "destinationId" : "14",
+          "id" : "33",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Product search",
+          "destinationId" : "15",
+          "id" : "34",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Gets product suggestions",
+          "destinationId" : "16",
+          "id" : "35",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Sends notifications",
+          "destinationId" : "17",
+          "id" : "36",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Stock checks",
+          "destinationId" : "18",
+          "id" : "37",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Keycloak OIDC provider",
+        "documentation" : { },
+        "id" : "8",
+        "name" : "Authentication Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "auth_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "components" : [ {
+          "description" : "Manages SKU data",
+          "documentation" : { },
+          "id" : "10",
+          "name" : "Product Catalog",
+          "properties" : {
+            "structurizr.dsl.identifier" : "product_catalog"
+          },
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Stock level tracking",
+          "documentation" : { },
+          "id" : "11",
+          "name" : "Inventory Manager",
+          "properties" : {
+            "structurizr.dsl.identifier" : "inventory_manager"
+          },
+          "tags" : "Element,Component"
+        } ],
+        "description" : "Spring Boot microservice",
+        "documentation" : { },
+        "id" : "9",
+        "name" : "Product Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "product_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Spring Boot microservice",
+        "documentation" : { },
+        "id" : "12",
+        "name" : "Order Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "order_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Node.js microservice",
+        "documentation" : { },
+        "id" : "13",
+        "name" : "Shopping Cart Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "cart_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Spring Boot microservice",
+        "documentation" : { },
+        "id" : "14",
+        "name" : "Payment Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "payment_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Elasticsearch",
+        "documentation" : { },
+        "id" : "15",
+        "name" : "Search Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "search_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "description" : "ML-driven suggestions",
+        "documentation" : { },
+        "id" : "16",
+        "name" : "Recommendation Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "recommendation_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Sends emails/SMS",
+        "documentation" : { },
+        "id" : "17",
+        "name" : "Notification Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "notification_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Tracks stock levels",
+        "documentation" : { },
+        "id" : "18",
+        "name" : "Inventory Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "inventory_service"
+        },
+        "tags" : "Element,Container"
+      }, {
+        "description" : "React web app",
+        "documentation" : { },
+        "id" : "19",
+        "name" : "Admin Portal",
+        "properties" : {
+          "structurizr.dsl.identifier" : "admin_portal"
+        },
+        "tags" : "Element,Container"
+      } ],
+      "description" : "Handles all e-commerce operations",
+      "documentation" : { },
+      "id" : "4",
+      "location" : "Unspecified",
+      "name" : "E-Commerce Platform",
+      "properties" : {
+        "structurizr.dsl.identifier" : "ecommerce_platform"
+      },
+      "relationships" : [ {
+        "description" : "Processes payments",
+        "destinationId" : "20",
+        "id" : "25",
+        "sourceId" : "4",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Serves static assets",
+        "destinationId" : "21",
+        "id" : "26",
+        "sourceId" : "4",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System"
+    }, {
+      "description" : "External Stripe integration",
+      "documentation" : { },
+      "id" : "20",
+      "location" : "Unspecified",
+      "name" : "Payment Processor",
+      "properties" : {
+        "structurizr.dsl.identifier" : "payment_gateway"
+      },
+      "tags" : "Element,Software System"
+    }, {
+      "description" : "Cloudflare edge network",
+      "documentation" : { },
+      "id" : "21",
+      "location" : "Unspecified",
+      "name" : "CDN",
+      "properties" : {
+        "structurizr.dsl.identifier" : "cdn"
+      },
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "E-Commerce Platform",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJFLUNvbW1lcmNlIFBsYXRmb3JtIiAiTGFyZ2Utc2NhbGUgZGlzdHJpYnV0ZWQgc3lzdGVtIGhhbmRsaW5nIG9ubGluZSByZXRhaWwgb3BlcmF0aW9ucyIgewoKICAgICFhZHJzIGFkcnMKICAgICFkb2NzIGRvY3Mvb3ZlcnZpZXcubWQKCiAgICBtb2RlbCB7CiAgICAgICAgLy8gUGVvcGxlCiAgICAgICAgY3VzdG9tZXIgPSBwZXJzb24gIk9ubGluZSBTaG9wcGVyIiAiVXNlcyB3ZWIvbW9iaWxlIGludGVyZmFjZXMgdG8gYnJvd3NlIGFuZCBwdXJjaGFzZSBwcm9kdWN0cyIKICAgICAgICBzZWxsZXIgPSBwZXJzb24gIlRoaXJkLVBhcnR5IFNlbGxlciIgIk1hbmFnZXMgcHJvZHVjdCBsaXN0aW5ncyBhbmQgaW52ZW50b3J5IgogICAgICAgIGFkbWluID0gcGVyc29uICJTeXN0ZW0gQWRtaW5pc3RyYXRvciIgIk1hbmFnZXMgcGxhdGZvcm0gY29uZmlndXJhdGlvbiBhbmQgbW9uaXRvcmluZyIKCiAgICAgICAgLy8gQ29yZSBTeXN0ZW0KICAgICAgICBlY29tbWVyY2VfcGxhdGZvcm0gPSBzb2Z0d2FyZVN5c3RlbSAiRS1Db21tZXJjZSBQbGF0Zm9ybSIgIkhhbmRsZXMgYWxsIGUtY29tbWVyY2Ugb3BlcmF0aW9ucyIgewogICAgICAgICAgICB3ZWJfYXBwID0gY29udGFpbmVyICJXZWIgQXBwbGljYXRpb24iICJOZXh0LmpzIGZyb250ZW5kIiAiSmF2YVNjcmlwdCIKICAgICAgICAgICAgbW9iaWxlX2FwcCA9IGNvbnRhaW5lciAiTW9iaWxlIEFwcCIgImlPUy9BbmRyb2lkIGNsaWVudHMiICJTd2lmdC9Lb3RsaW4iCiAgICAgICAgICAgIGFwaV9nYXRld2F5ID0gY29udGFpbmVyICJBUEkgR2F0ZXdheSIgIktvbmcgQVBJIG1hbmFnZW1lbnQiCiAgICAgICAgICAgIGF1dGhfc2VydmljZSA9IGNvbnRhaW5lciAiQXV0aGVudGljYXRpb24gU2VydmljZSIgIktleWNsb2FrIE9JREMgcHJvdmlkZXIiCiAgICAgICAgICAgIHByb2R1Y3Rfc2VydmljZSA9IGNvbnRhaW5lciAiUHJvZHVjdCBTZXJ2aWNlIiAiU3ByaW5nIEJvb3QgbWljcm9zZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBwcm9kdWN0X2NhdGFsb2cgPSBjb21wb25lbnQgIlByb2R1Y3QgQ2F0YWxvZyIgIk1hbmFnZXMgU0tVIGRhdGEiCiAgICAgICAgICAgICAgICBpbnZlbnRvcnlfbWFuYWdlciA9IGNvbXBvbmVudCAiSW52ZW50b3J5IE1hbmFnZXIiICJTdG9jayBsZXZlbCB0cmFja2luZyIKICAgICAgICAgICAgfQogICAgICAgICAgICBvcmRlcl9zZXJ2aWNlID0gY29udGFpbmVyICJPcmRlciBTZXJ2aWNlIiAiU3ByaW5nIEJvb3QgbWljcm9zZXJ2aWNlIgogICAgICAgICAgICBjYXJ0X3NlcnZpY2UgPSBjb250YWluZXIgIlNob3BwaW5nIENhcnQgU2VydmljZSIgIk5vZGUuanMgbWljcm9zZXJ2aWNlIgogICAgICAgICAgICBwYXltZW50X3NlcnZpY2UgPSBjb250YWluZXIgIlBheW1lbnQgU2VydmljZSIgIlNwcmluZyBCb290IG1pY3Jvc2VydmljZSIKICAgICAgICAgICAgc2VhcmNoX3NlcnZpY2UgPSBjb250YWluZXIgIlNlYXJjaCBTZXJ2aWNlIiAiRWxhc3RpY3NlYXJjaCIKICAgICAgICAgICAgcmVjb21tZW5kYXRpb25fc2VydmljZSA9IGNvbnRhaW5lciAiUmVjb21tZW5kYXRpb24gU2VydmljZSIgIk1MLWRyaXZlbiBzdWdnZXN0aW9ucyIKICAgICAgICAgICAgbm90aWZpY2F0aW9uX3NlcnZpY2UgPSBjb250YWluZXIgIk5vdGlmaWNhdGlvbiBTZXJ2aWNlIiAiU2VuZHMgZW1haWxzL1NNUyIKICAgICAgICAgICAgaW52ZW50b3J5X3NlcnZpY2UgPSBjb250YWluZXIgIkludmVudG9yeSBTZXJ2aWNlIiAiVHJhY2tzIHN0b2NrIGxldmVscyIKICAgICAgICAgICAgYWRtaW5fcG9ydGFsID0gY29udGFpbmVyICJBZG1pbiBQb3J0YWwiICJSZWFjdCB3ZWIgYXBwIgogICAgICAgIH0KCiAgICAgICAgLy8gRXh0ZXJuYWwgU3lzdGVtcwogICAgICAgIHBheW1lbnRfZ2F0ZXdheSA9IHNvZnR3YXJlU3lzdGVtICJQYXltZW50IFByb2Nlc3NvciIgIkV4dGVybmFsIFN0cmlwZSBpbnRlZ3JhdGlvbiIKICAgICAgICBjZG4gPSBzb2Z0d2FyZVN5c3RlbSAiQ0ROIiAiQ2xvdWRmbGFyZSBlZGdlIG5ldHdvcmsiCgogICAgICAgIC8vIFJlbGF0aW9uc2hpcHMKICAgICAgICBjdXN0b21lciAtPiBlY29tbWVyY2VfcGxhdGZvcm0gIkJyb3dzZXMgcHJvZHVjdHMgYW5kIG1ha2VzIHB1cmNoYXNlcyIKICAgICAgICBzZWxsZXIgLT4gZWNvbW1lcmNlX3BsYXRmb3JtICJNYW5hZ2VzIGludmVudG9yeSBhbmQgcHJvZHVjdHMiCiAgICAgICAgYWRtaW4gLT4gZWNvbW1lcmNlX3BsYXRmb3JtICJDb25maWd1cmVzIGFuZCBtb25pdG9ycyBzeXN0ZW0iCiAgICAgICAgZWNvbW1lcmNlX3BsYXRmb3JtIC0+IHBheW1lbnRfZ2F0ZXdheSAiUHJvY2Vzc2VzIHBheW1lbnRzIgogICAgICAgIGVjb21tZXJjZV9wbGF0Zm9ybSAtPiBjZG4gIlNlcnZlcyBzdGF0aWMgYXNzZXRzIgoKICAgICAgICAvLyBJbnRlcm5hbCBzZXJ2aWNlIHJlbGF0aW9uc2hpcHMKICAgICAgICB3ZWJfYXBwIC0+IGFwaV9nYXRld2F5ICJBUEkgcmVxdWVzdHMiCiAgICAgICAgbW9iaWxlX2FwcCAtPiBhcGlfZ2F0ZXdheSAiQVBJIHJlcXVlc3RzIgogICAgICAgIGFwaV9nYXRld2F5IC0+IGF1dGhfc2VydmljZSAiQXV0aGVudGljYXRlcyB1c2VycyIKICAgICAgICBhcGlfZ2F0ZXdheSAtPiBwcm9kdWN0X3NlcnZpY2UgIlByb2R1Y3QgaW5mbyByZXF1ZXN0cyIKICAgICAgICBhcGlfZ2F0ZXdheSAtPiBvcmRlcl9zZXJ2aWNlICJPcmRlciBwcm9jZXNzaW5nIgogICAgICAgIGFwaV9nYXRld2F5IC0+IGNhcnRfc2VydmljZSAiQ2FydCBtYW5hZ2VtZW50IgogICAgICAgIGFwaV9nYXRld2F5IC0+IHBheW1lbnRfc2VydmljZSAiUGF5bWVudCBwcm9jZXNzaW5nIgogICAgICAgIGFwaV9nYXRld2F5IC0+IHNlYXJjaF9zZXJ2aWNlICJQcm9kdWN0IHNlYXJjaCIKICAgICAgICBhcGlfZ2F0ZXdheSAtPiByZWNvbW1lbmRhdGlvbl9zZXJ2aWNlICJHZXRzIHByb2R1Y3Qgc3VnZ2VzdGlvbnMiCiAgICAgICAgYXBpX2dhdGV3YXkgLT4gbm90aWZpY2F0aW9uX3NlcnZpY2UgIlNlbmRzIG5vdGlmaWNhdGlvbnMiCiAgICAgICAgYXBpX2dhdGV3YXkgLT4gaW52ZW50b3J5X3NlcnZpY2UgIlN0b2NrIGNoZWNrcyIKCiAgICAgICAgLy8gRGVwbG95bWVudCBlbnZpcm9ubWVudCBiZWxvbmdzIGhlcmUhCiAgICAgICAgcHJvZHVjdGlvbiA9IGRlcGxveW1lbnRFbnZpcm9ubWVudCAiUHJvZHVjdGlvbiIgewogICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiQVdTIENsb3VkIiB7CiAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiRUMyIEF1dG8gU2NhbGluZyBHcm91cCIgewogICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lckluc3RhbmNlIHdlYl9hcHAKICAgICAgICAgICAgICAgICAgICBjb250YWluZXJJbnN0YW5jZSBhcGlfZ2F0ZXdheQogICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lckluc3RhbmNlIGF1dGhfc2VydmljZQogICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lckluc3RhbmNlIHByb2R1Y3Rfc2VydmljZQogICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lckluc3RhbmNlIG9yZGVyX3NlcnZpY2UKICAgICAgICAgICAgICAgICAgICBjb250YWluZXJJbnN0YW5jZSBjYXJ0X3NlcnZpY2UKICAgICAgICAgICAgICAgICAgICBjb250YWluZXJJbnN0YW5jZSBwYXltZW50X3NlcnZpY2UKICAgICAgICAgICAgICAgICAgICBjb250YWluZXJJbnN0YW5jZSBzZWFyY2hfc2VydmljZQogICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lckluc3RhbmNlIHJlY29tbWVuZGF0aW9uX3NlcnZpY2UKICAgICAgICAgICAgICAgICAgICBjb250YWluZXJJbnN0YW5jZSBub3RpZmljYXRpb25fc2VydmljZQogICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lckluc3RhbmNlIGludmVudG9yeV9zZXJ2aWNlCiAgICAgICAgICAgICAgICAgICAgY29udGFpbmVySW5zdGFuY2UgYWRtaW5fcG9ydGFsCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiUkRTIENsdXN0ZXIiIHsKICAgICAgICAgICAgICAgICAgICBpbmZyYXN0cnVjdHVyZU5vZGUgIlVzZXIgRGF0YWJhc2UiICJQb3N0Z3JlU1FMIgogICAgICAgICAgICAgICAgICAgIGluZnJhc3RydWN0dXJlTm9kZSAiT3JkZXIgRGF0YWJhc2UiICJQb3N0Z3JlU1FMIgogICAgICAgICAgICAgICAgICAgIGluZnJhc3RydWN0dXJlTm9kZSAiUHJvZHVjdCBEYXRhYmFzZSIgIlBvc3RncmVTUUwiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiRWxhc3RpY2FjaGUiIHsKICAgICAgICAgICAgICAgICAgICBpbmZyYXN0cnVjdHVyZU5vZGUgIlJlZGlzIENhY2hlIiAiUmVkaXMiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiUzMgQnVja2V0IiB7CiAgICAgICAgICAgICAgICAgICAgaW5mcmFzdHJ1Y3R1cmVOb2RlICJTdGF0aWMgQ29udGVudCBTdG9yYWdlIiAiUzMiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9CgogICAgdmlld3MgewogICAgICAgIHN5c3RlbUNvbnRleHQgZWNvbW1lcmNlX3BsYXRmb3JtIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHIKICAgICAgICB9CiAgICAgICAgY29udGFpbmVyIGVjb21tZXJjZV9wbGF0Zm9ybSB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0IHRiCiAgICAgICAgfQogICAgICAgIGNvbXBvbmVudCBwcm9kdWN0X3NlcnZpY2UgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCB0YgogICAgICAgIH0KICAgICAgICAvLyBEZXBsb3ltZW50IHZpZXcgcmVmZXJlbmNlcyB0aGUgZW52aXJvbm1lbnQgbmFtZSBmcm9tIG1vZGVsCiAgICAgICAgZGVwbG95bWVudCAqIHByb2R1Y3Rpb24gewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJTb2Z0d2FyZSBTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzExNjhiZAogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkNvbnRhaW5lciIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjNDM4ZGQ1CiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiQ29tcG9uZW50IiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM4NUJCRjAKICAgICAgICAgICAgICAgIGNvbG9yICMwMDAwMDAKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KCiAgICBjb25maWd1cmF0aW9uIHsKICAgICAgICB2aXNpYmlsaXR5IHB1YmxpYwogICAgfQp9"
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "9",
+      "elements" : [ {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "generatedKey" : true,
+      "key" : "Component-001",
+      "order" : 3
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "Deployment-001",
+      "metadataSymbols" : "SquareBrackets",
+      "styles" : {
+        "elements" : [ {
+          "background" : "#1168bd",
+          "color" : "#ffffff",
+          "tag" : "Software System"
+        }, {
+          "background" : "#438dd5",
+          "color" : "#ffffff",
+          "tag" : "Container"
+        }, {
+          "background" : "#85bbf0",
+          "color" : "#000000",
+          "tag" : "Component"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "19",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "generatedKey" : true,
+      "key" : "Container-001",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "27"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "29"
+      }, {
+        "id" : "30"
+      }, {
+        "id" : "31"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "34"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "36"
+      }, {
+        "id" : "37"
+      } ],
+      "softwareSystemId" : "4"
+    } ],
+    "deploymentViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 8759,
+        "width" : 2430
+      },
+      "elements" : [ {
+        "id" : "38",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "39",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "40",
+        "x" : 240,
+        "y" : 2605
+      }, {
+        "id" : "41",
+        "x" : 990,
+        "y" : 2605
+      }, {
+        "id" : "43",
+        "x" : 1740,
+        "y" : 5005
+      }, {
+        "id" : "45",
+        "x" : 1740,
+        "y" : 4405
+      }, {
+        "id" : "47",
+        "x" : 1740,
+        "y" : 3805
+      }, {
+        "id" : "49",
+        "x" : 1740,
+        "y" : 3205
+      }, {
+        "id" : "51",
+        "x" : 1740,
+        "y" : 2605
+      }, {
+        "id" : "53",
+        "x" : 1740,
+        "y" : 2005
+      }, {
+        "id" : "55",
+        "x" : 1740,
+        "y" : 1405
+      }, {
+        "id" : "57",
+        "x" : 1740,
+        "y" : 805
+      }, {
+        "id" : "59",
+        "x" : 1740,
+        "y" : 205
+      }, {
+        "id" : "61",
+        "x" : 240,
+        "y" : 4105
+      }, {
+        "id" : "62",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "63",
+        "x" : 240,
+        "y" : 5617
+      }, {
+        "id" : "64",
+        "x" : 240,
+        "y" : 6217
+      }, {
+        "id" : "65",
+        "x" : 240,
+        "y" : 6817
+      }, {
+        "id" : "66",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "67",
+        "x" : 240,
+        "y" : 7430
+      }, {
+        "id" : "68",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "69",
+        "x" : 240,
+        "y" : 8042
+      } ],
+      "environment" : "Production",
+      "generatedKey" : true,
+      "key" : "Deployment-001",
+      "order" : 4,
+      "relationships" : [ {
+        "id" : "42"
+      }, {
+        "id" : "44",
+        "vertices" : [ {
+          "x" : 1740,
+          "y" : 4855
+        } ]
+      }, {
+        "id" : "46",
+        "vertices" : [ {
+          "x" : 1740,
+          "y" : 4255
+        } ]
+      }, {
+        "id" : "48",
+        "vertices" : [ {
+          "x" : 1740,
+          "y" : 3655
+        } ]
+      }, {
+        "id" : "50"
+      }, {
+        "id" : "52"
+      }, {
+        "id" : "54"
+      }, {
+        "id" : "56",
+        "vertices" : [ {
+          "x" : 1740,
+          "y" : 1855
+        } ]
+      }, {
+        "id" : "58",
+        "vertices" : [ {
+          "x" : 1740,
+          "y" : 1255
+        } ]
+      }, {
+        "id" : "60",
+        "vertices" : [ {
+          "x" : 1740,
+          "y" : 655
+        } ]
+      } ]
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "21",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "generatedKey" : true,
+      "key" : "SystemContext-001",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "22"
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "26"
+      } ],
+      "softwareSystemId" : "4"
+    } ]
+  }
+}
