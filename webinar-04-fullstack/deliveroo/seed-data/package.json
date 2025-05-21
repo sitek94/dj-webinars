@@ -1,0 +1,12 @@
+{
+  "name": "seed-data",
+  "version": "1.0.0",
+  "description": "Seed data for Deliveroo",
+  "main": "index.js",
+  "scripts": {
+    "seed": "node generate-seed.js"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.8.0"
+  }
+}

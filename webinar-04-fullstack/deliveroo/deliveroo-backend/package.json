@@ -1,0 +1,29 @@
+{
+  "name": "deliveroo-backend",
+  "author": "Developer Jutra",
+  "private": true,
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "dotenv -e .env.local -- ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pg": "^8.16.0",
+    "redis": "^5.0.1",
+    "winston": "^3.17.0",
+    "winston-loki": "^6.1.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/node": "^20.0.0",
+    "@types/pg": "^8.15.2",
+    "dotenv": "^16.0.0",
+    "dotenv-cli": "^8.0.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.0"
+  }
+}

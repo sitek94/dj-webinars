@@ -1,4 +1,4 @@
-# API Specification (Excerpt)
+# API Specification (dummy API)
 
 ## Product Service
 

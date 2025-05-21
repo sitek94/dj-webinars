@@ -1,0 +1,59 @@
+services:
+
+  vehicle-service:
+    build:
+      context: ./deliveroo-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/deliveroo
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: strongpassword123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - "8080:8080"
+    networks:
+      - vehicle-network
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: deliveroo
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: strongpassword123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d deliveroo"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - vehicle-network
+
+  pgadmin:
+    image: dpage/pgadmin4:9
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./pgadmin/servers.json:/pgadmin4/servers.json
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - vehicle-network
+
+volumes:
+  postgres_data:
+  pgadmin-data:
+
+networks:
+  vehicle-network:
+    driver: bridge

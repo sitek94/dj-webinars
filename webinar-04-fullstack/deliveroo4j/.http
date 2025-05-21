@@ -1,0 +1,63 @@
+@baseUrl = http://localhost:8080
+
+### Get vehicles
+GET {{baseUrl}}/vehicles
+Content-Type: application/json
+
+###
+
+### Add a new vehicle
+POST {{baseUrl}}/vehicles
+Content-Type: application/json
+
+{
+  "type": "truck",
+  "licensePlate": "ABC123",
+  "status": "available",
+  "lastMaintenanceDate": "2025-01-01"
+}
+
+###
+
+### Delete a vehicle by ID
+DELETE {{baseUrl}}/vehicles/1
+Content-Type: application/json
+
+###
+
+### Get a vehicle by ID
+GET {{baseUrl}}/vehicles/1
+Content-Type: application/json
+
+###
+
+### Delete a vehicle by ID
+DELETE {{baseUrl}}/vehicles/2
+Content-Type: application/json
+
+### Update a vehicle by ID
+PUT {{baseUrl}}/vehicles/1
+Content-Type: application/json
+
+{
+  "type": "van",
+  "licensePlate": "ABC123",
+  "status": "available",
+  "lastMaintenanceDate": "2025-01-01"
+}
+
+### Patch a vehicle status by ID
+PATCH {{baseUrl}}/vehicles/1
+Content-Type: application/json
+
+{
+  "status": "on delivery"
+}
+
+### Patch a last maintenance date by ID
+PATCH {{baseUrl}}/vehicles/1
+Content-Type: application/json
+
+{
+  "lastMaintenanceDate": "2025-04-01"
+}

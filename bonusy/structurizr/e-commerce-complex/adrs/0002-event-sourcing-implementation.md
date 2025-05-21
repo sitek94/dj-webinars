@@ -1,4 +1,4 @@
-# ADR-002: Event Sourcing Implementation
+# ADR-002: Event Sourcing Implementation (dummy ADR)
 
 ## Context
 Need real-time inventory updates across distributed systems.

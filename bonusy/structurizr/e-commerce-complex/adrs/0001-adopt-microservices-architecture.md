@@ -1,4 +1,4 @@
-# ADR-001: Adopt Microservices Architecture
+# ADR-001: Adopt Microservices Architecture (dummy ADR)
 
 ## Context
 The system requires horizontal scalability and independent deployability of components.

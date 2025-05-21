@@ -71,13 +71,13 @@ docker compose down
 
 ## Useful Commands
 
-| Action                                   | Command                                  |
+| Action                                    | Command                                  |
 |-------------------------------------------|------------------------------------------|
 | Build & start all services                | `docker compose up -d --build`           |
 | Stop all services                         | `docker compose down`                    |
 | Restart a specific service (e.g., app)    | `docker compose restart app`             |
-| View logs for a service                   | `docker compose logs -f `       |
-| Execute a shell in a running container    | `docker compose exec  sh`       |
+| View logs for a service                   | `docker compose logs -f `                |
+| Execute a shell in a running container    | `docker compose exec  sh`                |
 | List all running containers               | `docker compose ps`                      |
 
 ---

@@ -11,6 +11,9 @@ workspace "E-Commerce Platform" "Large-scale distributed system handling online 
 
         // Core System
         ecommerce_platform = softwareSystem "E-Commerce Platform" "Handles all e-commerce operations" {
+            !adrs adrs
+            !docs docs/overview.md
+
             web_app = container "Web Application" "Next.js frontend" "JavaScript"
             mobile_app = container "Mobile App" "iOS/Android clients" "Swift/Kotlin"
             api_gateway = container "API Gateway" "Kong API management"
@@ -115,6 +118,11 @@ workspace "E-Commerce Platform" "Large-scale distributed system handling online 
             element "Component" {
                 background #85BBF0
                 color #000000
+            }
+            element "Person" {
+                background #04427b
+                color #ffffff
+                shape person
             }
         }
     }

@@ -1,0 +1,130 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Global styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  @apply bg-neutral-50 text-neutral-800;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-medium;
+  line-height: 1.2;
+}
+
+h1 {
+  @apply text-3xl sm:text-4xl font-bold;
+}
+
+h2 {
+  @apply text-2xl sm:text-3xl font-bold;
+}
+
+h3 {
+  @apply text-xl sm:text-2xl;
+}
+
+p {
+  @apply mb-4;
+}
+
+.container {
+  @apply px-4 mx-auto max-w-7xl;
+}
+
+/* Form Elements */
+.form-group {
+  @apply mb-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-neutral-700 mb-1;
+}
+
+.form-control {
+  @apply w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200;
+}
+
+.btn-primary {
+  @apply bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500;
+}
+
+.btn-secondary {
+  @apply bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-50 focus:ring-primary-500;
+}
+
+.btn-outline {
+  @apply bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50;
+}
+
+/* Card */
+.card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden;
+}
+
+.card-header {
+  @apply px-6 py-4 border-b border-neutral-200;
+}
+
+.card-body {
+  @apply px-6 py-4;
+}
+
+.card-footer {
+  @apply px-6 py-4 border-t border-neutral-200;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-slide-in {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Layout classes */
+.page-container {
+  @apply min-h-screen flex flex-col;
+}
+
+.main-content {
+  @apply flex-grow;
+}
+
+/* Material Icons */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}

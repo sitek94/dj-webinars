@@ -36,6 +36,7 @@ services:
       - redis_password
     restart: unless-stopped
     mem_limit: "256m"
+
   # PostgreSQL Database Service
   postgres:
     image: postgres:17-alpine

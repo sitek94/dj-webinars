@@ -1,4 +1,4 @@
-# E-Commerce Platform Architecture Overview
+# E-Commerce Platform Architecture Overview (dummy docs)
 
 ## Key Characteristics
 
