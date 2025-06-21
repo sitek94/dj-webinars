@@ -6,14 +6,13 @@ import { initializeTracing } from './tracing';
 initializeTracing();
 
 import express, { Request, Response, NextFunction } from 'express';
-import bodyParser from 'body-parser';
 import { getProducts, getProductById, createProduct, Product } from './database';
 import { trace } from '@opentelemetry/api';
 import axios from 'axios';
 import logger from './logger';
 import { assertEnvVars } from './env';
 import { metricsMiddleware } from './metrics.middleware';
-import { register } from './metrics';
+import { register, productInventoryLevel } from './metrics';
 
 const app = express();
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -33,8 +32,6 @@ assertEnvVars(
 );
 
 // Body parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(metricsMiddleware);
 
@@ -140,6 +137,44 @@ app.get('/metrics', async (_: Request, res: Response) => {
   }
 });
 
+// Endpoint to update inventory
+app.post('/availability/:productName', async (req: Request, res: Response) => {
+  const { productName } = req.params;
+  const { quantity } = req.body;
+
+  if (quantity === undefined) {
+    return res.status(400).json({ error: 'Quantity must be provided' });
+  }
+
+  try {
+    // Call the Python availability-api to update the stock
+    await axios.post(`${availabilityApiUrl}/${productName}`, { quantity });
+    
+    // Update the Prometheus Gauge metric
+    productInventoryLevel.labels(productName).set(Number(quantity));
+    
+    logger.info(`Successfully updated inventory for ${productName} to ${quantity}`);
+    res.status(200).json({ success: true, productName, quantity });
+  } catch (error: any) {
+    logger.error('Error updating availability:', { error: error.message });
+    res.status(500).json({ error: 'Failed to update availability' });
+  }
+});
+
+// Endpoint to get current inventory for one product
+app.get('/availability/:productName', async (req: Request, res: Response) => {
+  const { productName } = req.params;
+
+  try {
+    // Get the stock from the availability-api
+    const response = await axios.get(`${availabilityApiUrl}/${productName}`);
+    res.status(200).json(response.data);
+  } catch (error: any) {
+    logger.error('Error getting availability:', { error: error.message });
+    res.status(500).json({ error: 'Failed to get availability' });
+  }
+});
+
 const myFunction = (): void => {
     for (let i = 0; i < 1000000; i++) {}
 }
@@ -165,8 +200,26 @@ app.get('/manual-trace', (req: Request, res: Response) => {
   });
 });
 
+// Function to initialize inventory metrics on startup
+const initializeInventoryMetrics = async () => {
+  try {
+    logger.info('Initializing inventory metrics...');
+    const response = await axios.get(availabilityApiUrl);
+    const inventory: Record<string, number> = response.data;
+    
+    for (const [productName, quantity] of Object.entries(inventory)) {
+      productInventoryLevel.labels(productName).set(quantity);
+    }
+    logger.info('Inventory metrics initialized successfully.');
+  } catch (error: any) {
+    logger.error('Failed to initialize inventory metrics:', { error: error.message });
+  }
+};
+
 app.listen(port, () => {
   logger.info(`Server running on http://localhost:${port}`);
+
+  initializeInventoryMetrics();
 });
 
 // Handle uncaught exceptions

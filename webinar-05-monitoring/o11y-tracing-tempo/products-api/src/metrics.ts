@@ -31,4 +31,12 @@ const httpRequestDurationSeconds = new promClient.Histogram({
   registers: [register]
 });
 
-export { register, httpRequestsTotal, httpRequestDurationSeconds };
+// Inventory level gauge
+const productInventoryLevel = new promClient.Gauge({
+  name: 'product_inventory_level',
+  help: 'Current inventory level for a specific product',
+  labelNames: ['product_name'],
+  registers: [register],
+});
+
+export { register, httpRequestsTotal, httpRequestDurationSeconds, productInventoryLevel };

@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 INSERT INTO products (name, price, stock) VALUES 
-('Laptop', 999.99, 25),
-('Smartphone', 699.99, 50),
-('Headphones', 199.99, 100),
-('Tablet', 349.99, 30),
-('Smartwatch', 249.99, 45);
+('laptop', 999.99, 25),
+('smartphone', 699.99, 50),
+('headphones', 199.99, 100),
+('tablet', 349.99, 30),
+('smartwatch', 249.99, 45);

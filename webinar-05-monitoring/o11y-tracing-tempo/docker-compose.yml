@@ -15,7 +15,7 @@ services:
       - NODE_ENV=development
       - OTEL_SERVICE_NAME=products-api
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
-      - CONSOLE_TRACE_EXPORTER=true
+      - CONSOLE_TRACE_EXPORTER=false
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=strongpassword123
       - POSTGRES_DB=productsdb
