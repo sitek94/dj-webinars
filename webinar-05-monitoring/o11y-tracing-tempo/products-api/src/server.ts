@@ -12,6 +12,8 @@ import { trace } from '@opentelemetry/api';
 import axios from 'axios';
 import logger from './logger';
 import { assertEnvVars } from './env';
+import { metricsMiddleware } from './metrics.middleware';
+import { register } from './metrics';
 
 const app = express();
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -34,6 +36,7 @@ assertEnvVars(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(metricsMiddleware);
 
 // Add request logging middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -125,6 +128,15 @@ app.post('/products', async (req: Request, res: Response): Promise<void> => {
   } catch (error: any) {
     logger.error('Error creating product:', { error: error.message, stack: error.stack });
     res.status(500).json({ error: 'Failed to create product' });
+  }
+});
+
+app.get('/metrics', async (_: Request, res: Response) => {
+  try {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
+  } catch (err) {
+    res.status(500).end(err);
   }
 });
 
